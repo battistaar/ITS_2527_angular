@@ -13,9 +13,4 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
 })
 export class App {
   items = cart;
-
-  getItemPrice(item: CartItem): number {
-    const calcItem = calcCartItem(item, 0.22);
-    return calcItem.totalPrice;
-  }
 }

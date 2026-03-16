@@ -4,26 +4,7 @@
     <ul class="list-group" id="items-list">
       @for (item of items; track item.id) {
         <li class="list-group-item item">
-          <div class="d-flex flex-row d-flex justify-content-between align-items-center">
-            <div class="item-name">
-              {{ item.product.name }}
-            </div>
-
-            <div class="d-flex flex-row align-items-center justify-content-end flex-wrap">
-              <span class="ms-2 d-flex flex-row align-items-center">
-                <label class="me-1" for="quantity">qty:</label>
-                <input
-                  class="form-control item-quantity"
-                  [(ngModel)]="item.quantity"
-                  type="number"
-                  style="width: 70px">
-              </span>
-              <span class="ms-2">
-                <span class="item-price">{{ getItemPrice(item) }}</span>
-                <span class="item-discount"></span>
-              </span>
-            </div>
-          </div>
+          <app-cart-item [item]="item"/>
         </li>
       }
     </ul>
@@ -32,7 +13,6 @@
   <div class="mt-5">
     <h3>Totale ordine</h3>
     <div class="order-summary">
-      <app-cart-item></app-cart-item>
     </div>
   </div>
 </div>

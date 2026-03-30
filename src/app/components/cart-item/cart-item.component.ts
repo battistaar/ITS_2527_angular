@@ -9,7 +9,7 @@ import { DiscountAmountPipe } from '../../pipes/discount-amount.pipe';
   selector: 'app-cart-item',
   imports: [FormsModule, CurrencyPipe, DiscountAmountPipe],
   templateUrl: './cart-item.component.html',
-  styleUrl: './cart-item.component.css',
+  styleUrl: './cart-item.component.css'
 })
 export class CartItemComponent {
   item = input.required<CartItem>();

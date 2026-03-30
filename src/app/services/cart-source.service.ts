@@ -1,6 +1,7 @@
-import { CartItem } from "./cart-item.entity";
+import { CartItem } from './../cart-item.entity';
+import { Injectable, signal } from '@angular/core';
 
-export const cart: CartItem[] = [
+const cart: CartItem[] = [
   {
     id: '1',
     quantity: 2,
@@ -90,3 +91,17 @@ export const cart: CartItem[] = [
     }
   }
 ];
+@Injectable({
+  providedIn: 'root',
+})
+export class CartSourceService {
+  private internal = signal<CartItem[]>(cart);
+  cart = this.internal.asReadonly();
+
+  setQuantity(item: CartItem, newQuantity: number) {
+    const index = this.internal().indexOf(item);
+    const clone = structuredClone(this.internal());
+    clone[index].quantity = newQuantity;
+    this.internal.set(clone);
+  }
+}

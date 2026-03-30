@@ -2,7 +2,7 @@
   <div id="items-list-container">
     <h3>I tuoi articoli</h3>
     <ul class="list-group" id="items-list">
-      @for (item of items; track item.id) {
+      @for (item of items(); track item.id) {
         <li class="list-group-item item">
           <app-cart-item
             [vat]="vat()"
@@ -16,7 +16,7 @@
   <div class="mt-5">
     <h3>Totale ordine</h3>
     <div class="order-summary">
-      <app-summary [items]="items" [vat]="vat()"/>
+      <app-summary [items]="items()" [vat]="vat()"/>
     </div>
   </div>
 </div>

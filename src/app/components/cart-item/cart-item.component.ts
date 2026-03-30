@@ -3,10 +3,11 @@ import { CartItem } from '../../cart-item.entity';
 import { calcCartItem } from '../../cart-utils';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
+import { DiscountAmountPipe } from '../../pipes/discount-amount.pipe';
 
 @Component({
   selector: 'app-cart-item',
-  imports: [FormsModule, CurrencyPipe],
+  imports: [FormsModule, CurrencyPipe, DiscountAmountPipe],
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.css',
 })

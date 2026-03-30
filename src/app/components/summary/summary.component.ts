@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { CartItem } from '../../cart-item.entity';
 import { calcCartItem, getTransportFee } from '../../cart-utils';
 import { CurrencyPipe } from '@angular/common';

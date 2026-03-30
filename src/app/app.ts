@@ -26,7 +26,11 @@ export class App {
   });
 
   updateItemQuantity(item: CartItem, newQuantity: number) {
-    item.quantity = newQuantity;
-    this.items = structuredClone(this.items);
+    const index = this.items.indexOf(item);
+    const clone = structuredClone(this.items);
+    clone[index].quantity = newQuantity;
+    this.items = clone;
+    // item.quantity = newQuantity;
+    // this.items = structuredClone(this.items);
   }
 }

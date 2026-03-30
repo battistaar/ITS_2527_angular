@@ -9,7 +9,8 @@
       <input
         class="form-control item-quantity"
         type="number"
-        [(ngModel)]="item().quantity"
+        [ngModel]="item().quantity"
+        (ngModelChange)="updateQuantity($event)"
         style="width: 70px">
     </span>
     <span class="ms-2">

@@ -18,4 +18,8 @@ import { SummaryComponent } from './components/summary/summary.component';
 })
 export class App {
   items = cart;
+
+  updateItemQuantity(item: CartItem, newQuantity: number) {
+    item.quantity = newQuantity;
+  }
 }

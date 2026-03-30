@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CartItem } from '../../cart-item.entity';
 import { calcCartItem } from '../../cart-utils';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +11,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class CartItemComponent {
   item = input.required<CartItem>();
+
+  quantityChange = output<number>();
+
+  updateQuantity(event: number) {
+    this.quantityChange.emit(event);
+  }
 
   getItemPrice(item: CartItem): number {
     const calcItem = calcCartItem(item, 0.22);

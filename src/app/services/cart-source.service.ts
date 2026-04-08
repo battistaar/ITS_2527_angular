@@ -98,10 +98,20 @@ export class CartSourceService {
   private internal = signal<CartItem[]>(cart);
   cart = this.internal.asReadonly();
 
-  setQuantity(item: CartItem, newQuantity: number) {
+  setQuantity(item: CartItem, newQuantity: number): void {
+    if (newQuantity < 0) {
+      newQuantity = 0;
+    }
     const index = this.internal().indexOf(item);
     const clone = structuredClone(this.internal());
     clone[index].quantity = newQuantity;
+    this.internal.set(clone);
+  }
+
+  removeItem(item: CartItem): void {
+    const index = this.internal().indexOf(item);
+    const clone = structuredClone(this.internal());
+    clone.splice(index, 1);
     this.internal.set(clone);
   }
 }

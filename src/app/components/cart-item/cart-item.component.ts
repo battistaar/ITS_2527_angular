@@ -16,6 +16,8 @@ export class CartItemComponent {
 
   vat = input<number>(0);
 
+  quantityChange = output<number>();
+
   private calcItem = computed(() => {
     return calcCartItem(this.item(), this.vat());
   });
@@ -28,7 +30,6 @@ export class CartItemComponent {
     return this.calcItem().discountAmount;
   });
 
-  quantityChange = output<number>();
 
   updateQuantity(event: number) {
     this.quantityChange.emit(event);

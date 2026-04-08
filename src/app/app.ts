@@ -29,6 +29,15 @@ export class App {
   });
 
   updateItemQuantity(item: CartItem, newQuantity: number) {
-    this.cartSrv.setQuantity(item, newQuantity);
+    if (newQuantity === null) {
+      return;
+    }
+    if (newQuantity > 0) {
+      this.cartSrv.setQuantity(item, newQuantity);
+    } else {
+      setTimeout(() => {
+        this.cartSrv.removeItem(item);
+      }, 1000);
+    }
   }
 }

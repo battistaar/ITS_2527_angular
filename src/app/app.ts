@@ -33,11 +33,9 @@ export class App {
       return;
     }
     if (newQuantity > 0) {
-      this.cartSrv.setQuantity(item, newQuantity);
+      this.cartSrv.setQuantity(item.id, newQuantity);
     } else {
-      setTimeout(() => {
-        this.cartSrv.removeItem(item);
-      }, 1000);
+      this.cartSrv.removeItem(item.id);
     }
   }
 }

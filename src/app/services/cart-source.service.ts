@@ -98,18 +98,24 @@ export class CartSourceService {
   private internal = signal<CartItem[]>(cart);
   cart = this.internal.asReadonly();
 
-  setQuantity(item: CartItem, newQuantity: number): void {
+  setQuantity(id: string, newQuantity: number): void {
     if (newQuantity < 0) {
       newQuantity = 0;
     }
-    const index = this.internal().indexOf(item);
+    const index = this.internal().findIndex(item => item.id === id);
+    if (index === -1) {
+      throw new Error(`Missing item with id ${id}`);
+    }
     const clone = structuredClone(this.internal());
     clone[index].quantity = newQuantity;
     this.internal.set(clone);
   }
 
-  removeItem(item: CartItem): void {
-    const index = this.internal().indexOf(item);
+  removeItem(id: string): void {
+    const index = this.internal().findIndex(item => item.id === id);
+    if (index === -1) {
+      throw new Error(`Missing item with id ${id}`);
+    }
     const clone = structuredClone(this.internal());
     clone.splice(index, 1);
     this.internal.set(clone);

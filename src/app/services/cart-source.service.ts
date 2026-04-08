@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { CartItem } from './../cart-item.entity';
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 
 const cart: CartItem[] = [
   {
@@ -95,8 +96,20 @@ const cart: CartItem[] = [
   providedIn: 'root',
 })
 export class CartSourceService {
+  private http = inject(HttpClient);
+
   private internal = signal<CartItem[]>(cart);
   cart = this.internal.asReadonly();
+
+  constructor() {
+    this.fetch();
+  }
+
+  fetch() {
+    this.http.get('/api/cart-items').subscribe(items => {
+      console.log(items);
+    })
+  }
 
   setQuantity(id: string, newQuantity: number): void {
     if (newQuantity < 0) {

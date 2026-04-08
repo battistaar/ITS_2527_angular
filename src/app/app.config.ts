@@ -3,7 +3,6 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { CurrencyPipe } from '@angular/common';
-import { CartSourceService } from './services/cart-source.service';
 
 export const DEFAULT_COUNTRY_CODE = new InjectionToken<string>('DEFAULT_COUNTRY_CODE');
 

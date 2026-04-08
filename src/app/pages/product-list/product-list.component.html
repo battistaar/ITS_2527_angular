@@ -1,1 +1,46 @@
-<p>product-list works!</p>
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col">
+      <form>
+        <div class="row align-items-end">
+          <div class="col">
+            <label class="form-label">Name:</label>
+            <input type="text" class="form-control" placeholder="Product name">
+          </div>
+          <div class="col">
+            <label class="form-label">Min Price:</label>
+            <input type="number" class="form-control">
+          </div>
+          <div class="col">
+            <label class="form-label">Max Price:</label>
+            <input type="number" class="form-control">
+          </div>
+          <div class="col">
+            <button class="btn btn-primary">Search</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="row row-cols-1 row-cols-md-4 g-6 mt-5">
+        <div class="col">
+          <div class="card mt-2">
+            <div class="card-body">
+              <h5 class="card-title">item  name</h5>
+              <h6 class="card-subtitle mb-2 text-muted">150€</h6>
+              <p class="card-text">item description</p>
+              <a href="#" class="btn btn-link">details</a>
+            </div>
+            <div class="card-footer text-muted text-end">
+              <input type="number" value="1" class="product-card-quantity">
+              <button class="btn btn-link">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col side-cart">
+      side cart
+    </div>
+  </div>
+
+</div>

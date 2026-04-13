@@ -1,5 +1,5 @@
 import { Component, computed, effect, input, output } from '@angular/core';
-import { CartItem } from '../../cart-item.entity';
+import { CartItem } from '../../entities';
 import { calcCartItem } from '../../cart-utils';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';

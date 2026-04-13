@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CartItemComponent } from '../../components/cart-item/cart-item.component';
 import { SummaryComponent } from '../../components/summary/summary.component';
-import { CartItem } from '../../cart-item.entity';
+import { CartItem } from '../../entities';
 import { CartSourceService } from '../../services/cart-source.service';
 import { VatService } from '../../services/vat.service';
 

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { CartItem } from './../cart-item.entity';
+import { CartItem } from '../entities';
 import { inject, Injectable, signal } from '@angular/core';
 
 @Injectable({
@@ -48,5 +48,24 @@ export class CartSourceService {
       clone.splice(index, 1);
       this.internal.set(clone);
     });
+  }
+
+  add(id: string, quantity: number) {
+    const payload = {
+      productId: id,
+      quantity
+    };
+
+    this.http.post<CartItem>('/api/cart-items', payload).subscribe(newItem => {
+      const index = this.internal().findIndex(item => item.product.id === id);
+      const clone = structuredClone(this.internal());
+      if (index === -1) {
+        clone.push(newItem);
+      } else {
+        clone[index] = newItem;
+      }
+
+      this.internal.set(clone);
+    })
   }
 }

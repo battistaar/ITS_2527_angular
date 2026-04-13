@@ -1,4 +1,4 @@
-import { CartItem } from "./cart-item.entity";
+import { CartItem } from "./entities";
 
 export function getVat(countryCode: string): number {
     if (countryCode === 'IT') {

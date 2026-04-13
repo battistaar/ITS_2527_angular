@@ -1,1 +1,12 @@
-<p>product-card works!</p>
+<div class="card mt-2">
+  <div class="card-body">
+    <h5 class="card-title">{{ product().name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{price() | currency }}</h6>
+    <p class="card-text">{{ product().description }}</p>
+    <a href="#" class="btn btn-link" (click)="goToDetail()">details</a>
+  </div>
+  <div class="card-footer text-muted text-end">
+    <input type="number" [(ngModel)]="quantity" class="product-card-quantity">
+    <button class="btn btn-link" (click)="add()">Add</button>
+  </div>
+</div>

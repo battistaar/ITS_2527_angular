@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { CartItem } from '../../cart-item.entity';
+import { CartItem } from '../../entities';
 import { calcCartItem, getTransportFee } from '../../cart-utils';
 import { CurrencyPipe } from '@angular/common';
 

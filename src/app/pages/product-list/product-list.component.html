@@ -22,20 +22,15 @@
       </form>
 
       <div class="row row-cols-1 row-cols-md-4 g-6 mt-5">
+        @for (product of products(); track product.id) {
         <div class="col">
-          <div class="card mt-2">
-            <div class="card-body">
-              <h5 class="card-title">item  name</h5>
-              <h6 class="card-subtitle mb-2 text-muted">150€</h6>
-              <p class="card-text">item description</p>
-              <a href="#" class="btn btn-link">details</a>
-            </div>
-            <div class="card-footer text-muted text-end">
-              <input type="number" value="1" class="product-card-quantity">
-              <button class="btn btn-link">Add</button>
-            </div>
-          </div>
+          <app-product-card
+            [product]="product"
+            [vat]="vat()"
+            (onAdd)="add(product.id, $event)"
+          />
         </div>
+        }
       </div>
     </div>
     <div class="col side-cart">

@@ -8,17 +8,8 @@ import { Product } from '../entities';
 export class ProductService {
   private http = inject(HttpClient);
 
-  private internal = signal<Product[]>([]);
-  products = this.internal.asReadonly();
-
-  constructor() {
-    this.fetch();
-  }
-
-  fetch() {
-    this.http.get<Product[]>('/api/products').subscribe(items => {
-      this.internal.set(items);
-    })
+  find() {
+    return this.http.get<Product[]>('/api/products');
   }
 
 }

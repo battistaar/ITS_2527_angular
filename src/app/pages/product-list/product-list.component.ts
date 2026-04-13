@@ -3,10 +3,11 @@ import { ProductService } from '../../services/product.service';
 import { ProductCardComponent } from "../../components/product-card/product-card.component";
 import { VatService } from '../../services/vat.service';
 import { CartSourceService } from '../../services/cart-source.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductCardComponent],
+  imports: [ProductCardComponent, AsyncPipe],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
@@ -16,7 +17,7 @@ export class ProductListComponent {
   protected vatSrv = inject(VatService);
 
   vat = this.vatSrv.vat;
-  products = this.productSrv.products;
+  products = this.productSrv.find();
 
   add(id: string, quantity: number) {
     this.cartSrv.add(id, quantity);

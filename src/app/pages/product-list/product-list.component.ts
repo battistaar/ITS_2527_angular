@@ -28,11 +28,11 @@ export class ProductListComponent {
   vat = this.vatSrv.vat;
 
   products$ = this.filters$
-              .pipe(
-                startWith({}),
-                debounceTime(250),
-                switchMap(filter => this.productSrv.find(filter))
-              );
+                .pipe(
+                  startWith({}),
+                  debounceTime(250),
+                  switchMap(filter => this.productSrv.find(filter))
+                );
 
   add(id: string, quantity: number) {
     this.cartSrv.add(id, quantity);

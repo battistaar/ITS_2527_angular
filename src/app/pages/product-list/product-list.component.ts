@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { debounceTime, filter, from, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
 import { ProductFilterComponent, ProductFilterEvent } from '../../components/product-filter/product-filter.component';
 import { SideCartComponent } from "../../components/side-cart/side-cart.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -25,6 +26,8 @@ export class ProductListComponent {
   protected productSrv = inject(ProductService);
   protected cartSrv = inject(CartSourceService);
   protected vatSrv = inject(VatService);
+  protected router = inject(Router);
+
   protected filters$ = new Subject<ProductFilter>();
 
   vat = this.vatSrv.vat;
@@ -42,5 +45,9 @@ export class ProductListComponent {
 
   setFilters(filters: ProductFilterEvent) {
     this.filters$.next(filters);
+  }
+
+  navigateToDetail(id: string) {
+    this.router.navigate(['/products', id]);
   }
 }

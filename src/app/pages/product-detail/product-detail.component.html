@@ -1,7 +1,24 @@
 <div class="container-fluid mt-5">
   <div class="row">
     <div class="col">
+      @let p = product$ | async;
+      @if(p) {
+        <div>
+          {{ p.name }}
+        </div>
 
+        <div>
+          {{ p.description }}
+        </div>
+
+        <div>
+          {{ price$ | async | currency }}
+        </div>
+
+        <div>
+          {{ discountAmount$ | async | discountAmount }}
+        </div>
+      }
     </div>
     <div class="col side-cart">
       <app-side-cart></app-side-cart>

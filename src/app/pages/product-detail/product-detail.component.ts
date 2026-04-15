@@ -1,13 +1,15 @@
-import { Component, computed, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SideCartComponent } from '../../components/side-cart/side-cart.component';
-import { combineLatest, map, switchMap, tap } from 'rxjs';
+import { combineLatest, map, switchMap } from 'rxjs';
 import { ProductService } from '../../services/product.service';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { VatService } from '../../services/vat.service';
 import { calcCartItem } from '../../cart-utils';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { DiscountAmountPipe } from '../../pipes/discount-amount.pipe';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CartSourceService } from '../../services/cart-source.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -15,8 +17,10 @@ import { DiscountAmountPipe } from '../../pipes/discount-amount.pipe';
     SideCartComponent,
     CurrencyPipe,
     DiscountAmountPipe,
-    AsyncPipe
-  ],
+    AsyncPipe,
+    RouterLink,
+    ReactiveFormsModule
+],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })
@@ -24,6 +28,7 @@ export class ProductDetailComponent {
   protected activatedRoute = inject(ActivatedRoute);
   protected productSrv = inject(ProductService);
   protected vatSrv = inject(VatService);
+  protected cartSrv = inject(CartSourceService);
 
   productId$ = this.activatedRoute.params
     .pipe(
@@ -54,6 +59,16 @@ export class ProductDetailComponent {
   price$ = this.cartItem$.pipe(map((item => item.totalPrice)));
 
   discountAmount$ = this.cartItem$.pipe(map((item => item.discountAmount)));
+
+  quantityInput = new FormControl(1, {
+    nonNullable: true,
+    validators: [Validators.required, Validators.min(1)]});
+
+  addToCart(id: string) {
+    if(this.quantityInput.valid) {
+      this.cartSrv.add(id, this.quantityInput.value);
+    }
+  }
 }
 
 

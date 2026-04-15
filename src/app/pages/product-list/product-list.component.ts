@@ -7,6 +7,7 @@ import { AsyncPipe } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, filter, from, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
 import { ProductFilterComponent, ProductFilterEvent } from '../../components/product-filter/product-filter.component';
+import { SideCartComponent } from "../../components/side-cart/side-cart.component";
 
 @Component({
   selector: 'app-product-list',
@@ -14,8 +15,9 @@ import { ProductFilterComponent, ProductFilterEvent } from '../../components/pro
     ProductCardComponent,
     AsyncPipe,
     ReactiveFormsModule,
-    ProductFilterComponent
-  ],
+    ProductFilterComponent,
+    SideCartComponent
+],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })

@@ -22,9 +22,7 @@ export class ProductService {
   private http = inject(HttpClient);
 
   find(filters: ProductFilter = {}) {
-    console.log(filters);
     const q: ProductQuery = omitBy(filters, isNil);
-    console.log(q);
     return this.http.get<Product[]>('/api/products', {params: q});
   }
 

@@ -4,10 +4,9 @@ import { ProductCardComponent } from "../../components/product-card/product-card
 import { VatService } from '../../services/vat.service';
 import { CartSourceService } from '../../services/cart-source.service';
 import { AsyncPipe } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { debounceTime, filter, from, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, startWith, Subject, switchMap } from 'rxjs';
 import { ProductFilterComponent, ProductFilterEvent } from '../../components/product-filter/product-filter.component';
-import { SideCartComponent } from "../../components/side-cart/side-cart.component";
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +16,6 @@ import { Router } from '@angular/router';
     AsyncPipe,
     ReactiveFormsModule,
     ProductFilterComponent,
-    SideCartComponent
 ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',

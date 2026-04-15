@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { SideCartComponent } from '../../components/side-cart/side-cart.component';
 import { combineLatest, map, switchMap } from 'rxjs';
 import { ProductService } from '../../services/product.service';
 import { toObservable } from '@angular/core/rxjs-interop';
@@ -14,7 +13,6 @@ import { CartSourceService } from '../../services/cart-source.service';
 @Component({
   selector: 'app-product-detail',
   imports: [
-    SideCartComponent,
     CurrencyPipe,
     DiscountAmountPipe,
     AsyncPipe,

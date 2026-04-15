@@ -1,24 +1,14 @@
-<div class="container-fluid mt-5">
-  <div class="row">
-    <div class="col">
-      <app-product-filter (filterChange)="setFilters($event)" />
+<app-product-filter (filterChange)="setFilters($event)" />
 
-      <div class="row row-cols-1 row-cols-md-4 g-6 mt-5">
-        @for (product of products$ | async; track product.id) {
-        <div class="col">
-          <app-product-card
-            [product]="product"
-            [vat]="vat()"
-            (onAdd)="add(product.id, $event)"
-            (onDetail)="navigateToDetail(product.id)"
-          />
-        </div>
-        }
-      </div>
-    </div>
-    <div class="col side-cart">
-      <app-side-cart></app-side-cart>
-    </div>
+<div class="row row-cols-1 row-cols-md-4 g-6 mt-5">
+  @for (product of products$ | async; track product.id) {
+  <div class="col">
+    <app-product-card
+      [product]="product"
+      [vat]="vat()"
+      (onAdd)="add(product.id, $event)"
+      (onDetail)="navigateToDetail(product.id)"
+    />
   </div>
-
+  }
 </div>

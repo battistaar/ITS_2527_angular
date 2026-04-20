@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { filter, Subject, takeUntil } from 'rxjs';
 
@@ -17,6 +17,8 @@ export type ProductFilterEvent = {
 export class ProductFilterComponent {
   protected destroyed$ = new Subject<void>();
   protected fb = inject(FormBuilder);
+
+  filters = input<ProductFilterEvent>();
 
   filterChange = output<ProductFilterEvent>();
 
@@ -37,6 +39,15 @@ export class ProductFilterComponent {
         }
       )
     });
+
+  constructor() {
+    effect(() => {
+      const value = this.filters();
+      if (value) {
+        this.filterForm.patchValue(value, { emitEvent: false });
+      }
+    });
+  }
 
   ngOnInit() {
     this.filterForm.valueChanges

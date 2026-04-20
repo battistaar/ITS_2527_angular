@@ -5,9 +5,9 @@ import { VatService } from '../../services/vat.service';
 import { CartSourceService } from '../../services/cart-source.service';
 import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, startWith, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, debounceTime, map, ReplaySubject, shareReplay, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { ProductFilterComponent, ProductFilterEvent } from '../../components/product-filter/product-filter.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -25,10 +25,22 @@ export class ProductListComponent {
   protected cartSrv = inject(CartSourceService);
   protected vatSrv = inject(VatService);
   protected router = inject(Router);
-
-  protected filters$ = new Subject<ProductFilter>();
+  protected activatedRoute = inject(ActivatedRoute);
 
   vat = this.vatSrv.vat;
+
+  protected updateQueryParams$ = new ReplaySubject<ProductFilter>(1);
+
+  protected filters$ = this.activatedRoute.queryParams
+                        .pipe(
+                          map(params => {
+                            return {
+                              name: params['name'] as string,
+                              minPrice: params['minPrice'] ? parseFloat(params['minPrice']) : null,
+                              maxPrice: params['maxPrice'] ? parseFloat(params['maxPrice']) : null
+                            }
+                          })
+                        );
 
   products$ = this.filters$
                 .pipe(
@@ -42,7 +54,7 @@ export class ProductListComponent {
   }
 
   setFilters(filters: ProductFilterEvent) {
-    this.filters$.next(filters);
+    this.router.navigate([], {queryParams: filters});
   }
 
   navigateToDetail(id: string) {

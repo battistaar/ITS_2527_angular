@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, debounceTime, map, ReplaySubject, shareReplay, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { ProductFilterComponent, ProductFilterEvent } from '../../components/product-filter/product-filter.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { omitBy } from 'lodash';
 
 @Component({
   selector: 'app-product-list',
@@ -54,7 +55,8 @@ export class ProductListComponent {
   }
 
   setFilters(filters: ProductFilterEvent) {
-    this.router.navigate([], {queryParams: filters});
+    const q = omitBy(filters, val => val === '');
+    this.router.navigate([], {queryParams: q});
   }
 
   navigateToDetail(id: string) {

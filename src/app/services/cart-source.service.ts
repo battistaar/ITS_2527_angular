@@ -1,18 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { CartItem } from '../entities';
-import { inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartSourceService {
   private http = inject(HttpClient);
+  private authSrv = inject(AuthService);
 
   private internal = signal<CartItem[]>([]);
   cart = this.internal.asReadonly();
 
   constructor() {
-    this.fetch();
+    effect(() => {
+      const isAuthenticated = this.authSrv.isAuthenticated();
+      if (isAuthenticated) {
+        this.fetch();
+      } else {
+        this.internal.set([]);
+      }
+    })
   }
 
   fetch() {

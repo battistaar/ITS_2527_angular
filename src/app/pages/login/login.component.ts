@@ -3,11 +3,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { catchError, of, Subject, throwError } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -16,6 +16,7 @@ export class LoginComponent {
   protected authSrv = inject(AuthService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
 
   loginForm = this.fb.group({
     username: ['', { validators: [Validators.required] }],
@@ -42,7 +43,8 @@ export class LoginComponent {
           })
         )
         .subscribe(() => {
-          this.router.navigate(['/products']);
+          const dest = this.activatedRoute.snapshot.queryParams['dest'] || '/products';
+          this.router.navigate([dest]);
         });
     }
   }

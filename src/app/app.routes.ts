@@ -4,11 +4,13 @@ import { ProductListComponent } from './pages/product-list/product-list.componen
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductContainerComponent } from './pages/product-container/product-container.component';
 import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './utils/auth.guard';
 
 export const routes: Routes = [
   {
     path: 'checkout',
-    component: CheckoutComponent
+    component: CheckoutComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'products',

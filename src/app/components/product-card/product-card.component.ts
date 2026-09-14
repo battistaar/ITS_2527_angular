@@ -20,7 +20,7 @@ export class ProductCardComponent {
   product = input.required<Product>();
   vat = input<number>(0);
 
-  user = input<User | null>(null);
+  disabled = input<boolean>(false, {alias: 'cardDisabled'});
 
   onAdd = output<number>();
   onDetail = output<void>();

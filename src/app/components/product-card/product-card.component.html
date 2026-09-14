@@ -6,16 +6,16 @@
     <a class="btn btn-link" (click)="goToDetail()">details</a>
   </div>
   <div class="card-footer text-muted text-end">
-    <span ngbTooltip="Fai il Login per procedere" [disableTooltip]="!!user()">
+    <span ngbTooltip="Fai il Login per procedere" [disableTooltip]="!disabled()">
       <input
         type="number"
         [(ngModel)]="quantity"
         class="product-card-quantity"
-        [disabled]="!user()" >
+        [disabled]="disabled()" >
       <button
         class="btn btn-link"
         (click)="add()"
-        [disabled]="!user()"
+        [disabled]="disabled()"
       >Add</button>
     </span>
   </div>

@@ -9,6 +9,7 @@
     <app-product-card
       [product]="product"
       [vat]="vat()"
+      [user]="user()"
       (onAdd)="add(product.id, $event)"
       (onDetail)="navigateToDetail(product.id)"
     />

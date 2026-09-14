@@ -3,12 +3,15 @@ import { Product } from '../../entities';
 import { getDiscountedPrice, getVatPrice } from '../../cart-utils';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { User } from '../../services/auth.service';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap/tooltip';
 
 @Component({
   selector: 'app-product-card',
   imports: [
     CurrencyPipe,
-    FormsModule
+    FormsModule,
+    NgbTooltip
   ],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css',
@@ -16,6 +19,8 @@ import { FormsModule } from '@angular/forms';
 export class ProductCardComponent {
   product = input.required<Product>();
   vat = input<number>(0);
+
+  user = input<User | null>(null);
 
   onAdd = output<number>();
   onDetail = output<void>();

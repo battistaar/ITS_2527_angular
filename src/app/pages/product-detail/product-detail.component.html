@@ -3,9 +3,9 @@
   @let product = product$ | async;
   @if(product) {
   <div class="row mt-3">
-    <div class="col-6">
+    <div class="col-4">
       <div class="product-image-container">
-        <img class="product-image border rounded" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ftwentytwowords.com%2F37-random-but-totally-useful-amazon-products-we-use-all-of-the-time%2F&psig=AOvVaw0lpAGbp07LaV2nBo452c7J&ust=1742488043205000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD8mvnHlowDFQAAAAAdAAAAABAJ">
+        <img class="product-image border rounded" src="https://img.magnific.com/free-vector/sticker-set-mixed-daily-objects_1308-108542.jpg?semt=ais_hybrid&w=740&q=80">
       </div>
     </div>
     <div class="col">
@@ -14,21 +14,27 @@
       <hr>
       <div class="d-flex justify-content-between align-items-center">
         <h4>{{ price$ | async | currency }} {{ discountAmount$ | async | discountAmount}}</h4>
-        <div class="input-group mb-3 add-form">
-          <input
-            type="number"
-            class="form-control"
-            [formControl]="quantityInput"
-            [class.is-invalid]="quantityInput.invalid">
-          <button
-            type="button"
-            class="btn btn-primary"
-            [disabled]="quantityInput.disabled || quantityInput.invalid"
-            (click)="addToCart(product.id)"
+        <div
+          class="input-group mb-3 add-form"
+          ngbTooltip="Fai il Login per procedere"
+          [disableTooltip]="!!user()">
+            <input
+              type="number"
+              class="form-control"
+              style="width: 60px;"
+              [formControl]="quantityInput"
+              [class.is-invalid]="quantityInput.invalid"
+            >
+            <button
+              type="button"
+              class="btn btn-primary"
+              [disabled]="quantityInput.disabled || quantityInput.invalid"
+              (click)="addToCart(product.id)"
+              [disabled]="!user()"
             >Add</button>
-          <div class="invalid-feedback">
-            Min 0
-          </div>
+        </div>
+        <div class="invalid-feedback">
+          Min 0
         </div>
       </div>
     </div>

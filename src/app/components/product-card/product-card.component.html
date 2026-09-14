@@ -6,7 +6,17 @@
     <a class="btn btn-link" (click)="goToDetail()">details</a>
   </div>
   <div class="card-footer text-muted text-end">
-    <input type="number" [(ngModel)]="quantity" class="product-card-quantity">
-    <button class="btn btn-link" (click)="add()">Add</button>
+    <span ngbTooltip="Fai il Login per procedere" [disableTooltip]="!!user()">
+      <input
+        type="number"
+        [(ngModel)]="quantity"
+        class="product-card-quantity"
+        [disabled]="!user()" >
+      <button
+        class="btn btn-link"
+        (click)="add()"
+        [disabled]="!user()"
+      >Add</button>
+    </span>
   </div>
 </div>

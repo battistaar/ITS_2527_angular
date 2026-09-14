@@ -9,6 +9,7 @@ import { BehaviorSubject, debounceTime, map, ReplaySubject, shareReplay, startWi
 import { ProductFilterComponent, ProductFilterEvent } from '../../components/product-filter/product-filter.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { omitBy } from 'lodash';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-product-list',
@@ -27,6 +28,9 @@ export class ProductListComponent {
   protected vatSrv = inject(VatService);
   protected router = inject(Router);
   protected activatedRoute = inject(ActivatedRoute);
+  protected authSrv = inject(AuthService);
+
+  user = this.authSrv.currentUser;
 
   vat = this.vatSrv.vat;
 

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { combineLatest, map, switchMap } from 'rxjs';
 import { ProductService } from '../../services/product.service';
@@ -9,6 +9,8 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { DiscountAmountPipe } from '../../pipes/discount-amount.pipe';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CartSourceService } from '../../services/cart-source.service';
+import { AuthService } from '../../services/auth.service';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap/tooltip';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,7 +19,8 @@ import { CartSourceService } from '../../services/cart-source.service';
     DiscountAmountPipe,
     AsyncPipe,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbTooltip
 ],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
@@ -27,6 +30,9 @@ export class ProductDetailComponent {
   protected productSrv = inject(ProductService);
   protected vatSrv = inject(VatService);
   protected cartSrv = inject(CartSourceService);
+  protected authSrv = inject(AuthService);
+
+  user = this.authSrv.currentUser;
 
   productId$ = this.activatedRoute.params
     .pipe(
@@ -60,7 +66,18 @@ export class ProductDetailComponent {
 
   quantityInput = new FormControl(1, {
     nonNullable: true,
-    validators: [Validators.required, Validators.min(1)]});
+    validators: [Validators.required, Validators.min(1)]
+  });
+
+  constructor() {
+    effect(() => {
+      if (this.user()) {
+        this.quantityInput.enable();
+      } else {
+        this.quantityInput.disable();
+      }
+    });
+  }
 
   addToCart(id: string) {
     if(this.quantityInput.valid) {
@@ -68,64 +85,3 @@ export class ProductDetailComponent {
     }
   }
 }
-
-
-// import { Component, computed, inject } from '@angular/core';
-// import { ActivatedRoute } from '@angular/router';
-// import { SideCartComponent } from '../../components/side-cart/side-cart.component';
-// import { switchMap } from 'rxjs';
-// import { ProductService } from '../../services/product.service';
-// import { toSignal } from '@angular/core/rxjs-interop';
-// import { Product } from '../../entities';
-// import { VatService } from '../../services/vat.service';
-// import { calcCartItem } from '../../cart-utils';
-// import { CurrencyPipe } from '@angular/common';
-// import { DiscountAmountPipe } from '../../pipes/discount-amount.pipe';
-
-// @Component({
-//   selector: 'app-product-detail',
-//   imports: [
-//     SideCartComponent,
-//     CurrencyPipe,
-//     DiscountAmountPipe
-//   ],
-//   templateUrl: './product-detail.component.html',
-//   styleUrl: './product-detail.component.css',
-// })
-// export class ProductDetailComponent {
-//   protected activatedRoute = inject(ActivatedRoute);
-//   protected productSrv = inject(ProductService);
-//   protected vatSrv = inject(VatService);
-
-//   product$ = this.activatedRoute.params
-//     .pipe(
-//       switchMap(params => this.productSrv.getById(params['id']))
-//     );
-
-//   product = toSignal(this.product$);
-
-//   vat = this.vatSrv.vat;
-
-//   private cartItem = computed(() => {
-//     const product = this.product();
-//     if (!product) {
-//       return null;
-//     }
-//     const tmp = {
-//       id: '',
-//       quantity: 1,
-//       product
-//     }
-//     return calcCartItem(tmp, this.vat());
-//   });
-
-//   price = computed(() => {
-//     const c = this.cartItem();
-//     return c ? c.totalPrice : 0;
-//   });
-
-//   discountAmount = computed(() => {
-//     const c = this.cartItem();
-//     return c ? c.discountAmount: 0;
-//   });
-// }

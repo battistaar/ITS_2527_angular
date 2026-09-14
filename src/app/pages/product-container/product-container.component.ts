@@ -13,7 +13,6 @@ import { IfAuthenticatedDirective } from '../../utils/if-authenticated.directive
   ],
   templateUrl: './product-container.component.html',
   styleUrl: './product-container.component.css',
-  providers: [AuthService]
 })
 export class ProductContainerComponent {
 }

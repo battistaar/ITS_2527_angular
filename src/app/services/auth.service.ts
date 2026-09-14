@@ -49,4 +49,9 @@ export class AuthService {
       );
   }
 
+  logout() {
+    this.jwtSrv.removeToken();
+    this._currentUser.set(null);
+  }
+
 }
